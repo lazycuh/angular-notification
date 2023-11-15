@@ -1,0 +1,140 @@
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.4.6
+
+parameters:
+  node-image:
+    type: string
+    default: "node:18"
+
+install-pnpm: &install-pnpm
+  name: Installing pnpm package manager
+  command: |
+    corepack enable
+    corepack prepare pnpm@latest-8 --activate
+
+jobs:
+  versioning:
+    docker:
+      - image: << pipeline.parameters.node-image >>
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - '$GH_KEY'
+      - run:
+          name: Bumping version for release
+          command: |
+            chmod +x .circleci/scripts/versioning.sh
+            .circleci/scripts/versioning.sh
+
+  installation:
+    docker:
+      - image: << pipeline.parameters.node-image >>
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restoring pnpm package cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run: *install-pnpm
+      - run:
+          name: Installing dependencies
+          command: |
+            pnpm install
+      - save_cache:
+          name: Saving pnpm package cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  linting:
+    docker:
+      - image: << pipeline.parameters.node-image >>
+    steps:
+      - checkout
+      - run: *install-pnpm
+      - attach_workspace:
+          at: .
+      - run:
+          name: Linting
+          command: |
+            pnpm check-code-styles
+            pnpm lint
+
+  unit-testing:
+    docker:
+      - image: cimg/node:18.18.2-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          name: Unit testing
+          command: |
+            pnpm test:ci
+
+  building:
+    docker:
+      - image: << pipeline.parameters.node-image >>
+    steps:
+      - checkout
+      - run: *install-pnpm
+      - attach_workspace:
+          at: .
+      - run:
+          name: Building
+          command: |
+            pnpm build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  publish-to-npm-registry:
+    docker:
+      - image: << pipeline.parameters.node-image >>
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publishing to npm registry
+          command: |
+            chmod +x .circleci/scripts/publish-to-npm-registry.sh
+            cd dist/*
+            ../../.circleci/scripts/publish-to-npm-registry.sh
+
+workflows:
+  deployment:
+    jobs:
+      - versioning
+      - installation:
+          requires:
+            - versioning
+      - linting:
+          requires:
+            - installation
+      - unit-testing:
+          requires:
+            - installation
+      - building:
+          requires:
+            - installation
+      - publish-to-npm-registry:
+          filters:
+            branches:
+              only: main
+          context:
+            - npm
+          requires:
+            - linting
+            - unit-testing
+            - building

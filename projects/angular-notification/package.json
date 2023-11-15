@@ -1,0 +1,34 @@
+{
+  "name": "@babybeet/angular-notification",
+  "description": "A singleton, global Angular service to programmatically show notifications",
+  "version": "0.0.1",
+  "author": {
+    "name": "Baby Beet"
+  },
+  "peerDependencies": {
+    "@angular/common": "16 - 17",
+    "@angular/core": "16 - 17"
+  },
+  "keywords": [
+    "angular",
+    "angular notification",
+    "angular notification component",
+    "angular notification service",
+    "angular notification ui",
+    "notification",
+    "notification component",
+    "notification service",
+    "notification ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/babybeet/angular-notification"
+  },
+  "devDependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

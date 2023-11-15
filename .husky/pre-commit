@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+set -e
+
+if [ -z "$(git config --local user.name)" ] && [ -z "$(git config --local user.email)" ]
+then
+    echo "Error: git configurations \"user.name\" and \"user.email\" must be set"
+    echo "For example: git config --local user.name \"Hello World\" to set \"user.name\" to \"Hello World\""
+    echo "             git config --local user.email \"hello.world@email.com\" to set \"user.email\" to \"hello.world@email.com\""
+    exit 1
+fi
+
+pnpm lint-staged

@@ -1,0 +1,15 @@
+<div
+    class="bbb-notification__backdrop"
+    (pointerup)="close()"></div>
+<div class="bbb-notification__body">
+    <div
+        class="bbb-notification__content"
+        [innerHTML]="_content"></div>
+    <button
+        class="bbb-notification__action close"
+        aria-label="Close notification"
+        type="button"
+        (pointerup)="close()">
+        {{ _closeButtonLabel }}
+    </button>
+</div>

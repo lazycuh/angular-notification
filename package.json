@@ -1,0 +1,69 @@
+{
+  "name": "@babybeet/angular-notification",
+  "description": "A singleton, global Angular service to programmatically show notifications",
+  "version": "0.0.1",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --open",
+    "copy-assets": "cp CONTRIBUTING.md LICENSE README.md dist/* && cp -r docs dist/angular-notification/docs",
+    "build": "ng build angular-notification && pnpm copy-assets",
+    "watch": "ng build angular-notification --watch --configuration development",
+    "test": "ng test --browsers=ChromeHeadless",
+    "test:ci": "ng test --no-watch --browsers=ChromeHeadless",
+    "prepare": "husky install",
+    "lint": "eslint projects/**/*.{ts,html}",
+    "lint-staged": "lint-staged",
+    "check-code-styles": "prettier --check \"**/(*.ts|*.json|*.md|*.html)\""
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^16.2.0",
+    "@angular/common": "^16.2.0",
+    "@angular/compiler": "^16.2.0",
+    "@angular/core": "^16.2.0",
+    "@angular/forms": "^16.2.0",
+    "@angular/platform-browser": "^16.2.0",
+    "@angular/platform-browser-dynamic": "^16.2.0",
+    "@angular/router": "^16.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.13.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^16.2.9",
+    "@angular-eslint/builder": "16.3.1",
+    "@angular-eslint/eslint-plugin": "16.3.1",
+    "@angular-eslint/eslint-plugin-template": "16.3.1",
+    "@angular-eslint/schematics": "16.3.1",
+    "@angular-eslint/template-parser": "16.3.1",
+    "@angular/cli": "^16.2.9",
+    "@angular/compiler-cli": "^16.2.0",
+    "@babybeet/eslint-config-base": "^1.0.2",
+    "@babybeet/angular-testing-kit": "^1.0.1",
+    "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "^8.51.0",
+    "husky": "^8.0.3",
+    "jasmine-core": "~4.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^15.0.2",
+    "ng-packagr": "^16.2.0",
+    "prettier": "^3.0.3",
+    "typescript": "~5.1.3"
+  },
+  "lint-staged": {
+    "**/*.{ts,html}": [
+      "prettier -w --cache",
+      "eslint --fix --cache"
+    ],
+    "**/*.{json,md,scss}": [
+      "prettier -w --cache"
+    ]
+  }
+}
