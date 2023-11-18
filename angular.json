@@ -106,17 +106,6 @@
           },
           "defaultConfiguration": "development"
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "projects/visual-test/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["projects/visual-test/src/favicon.ico", "projects/visual-test/src/assets"],
-            "styles": ["projects/visual-test/src/styles.scss"],
-            "scripts": []
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
