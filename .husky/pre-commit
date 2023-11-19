@@ -11,4 +11,6 @@ then
     exit 1
 fi
 
+pnpm update-toc
+git add .
 pnpm lint-staged

@@ -18,11 +18,11 @@ import { Theme } from './theme';
   template: `<ng-container></ng-container>`
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class TestComponentRenderer {
-  constructor(readonly service: NotificationService) {}
+export class TestBedComponent {
+  constructor(private readonly _service: NotificationService) {}
 
   openNotification(config: Partial<NotificationConfiguration> = {}) {
-    this.service.open({
+    this._service.open({
       content: 'This notification is important',
       ...config
     });
@@ -31,19 +31,19 @@ export class TestComponentRenderer {
 
 describe('NotificationService', () => {
   const classSelectorPrefix = '.bbb-notification';
-  let fixture: ComponentFixture<TestComponentRenderer>;
-  let testComponentRenderer: TestComponentRenderer;
+  let fixture: ComponentFixture<TestBedComponent>;
+  let testBedComponent: TestBedComponent;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponentRenderer],
+      declarations: [TestBedComponent],
       providers: [NotificationService]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponentRenderer);
-    testComponentRenderer = fixture.componentInstance;
+    fixture = TestBed.createComponent(TestBedComponent);
+    testBedComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -52,7 +52,7 @@ describe('NotificationService', () => {
   });
 
   it('Should render a notification with the provided content', () => {
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       content: 'Hello World'
     });
 
@@ -62,7 +62,7 @@ describe('NotificationService', () => {
   });
 
   it('Should render a notification with the provided content as HTML', () => {
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       content: '<strong>Hello World</strong>'
     });
 
@@ -76,7 +76,7 @@ describe('NotificationService', () => {
   });
 
   it(`Should render a notification whose close button's label has the provided value`, () => {
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       closeButtonLabel: 'Dismiss'
     });
 
@@ -86,15 +86,40 @@ describe('NotificationService', () => {
   });
 
   it('Should use light theme by default', () => {
-    testComponentRenderer.openNotification();
+    testBedComponent.openNotification();
 
     fixture.detectChanges();
 
     assertThat(`${classSelectorPrefix}.light`).exists();
   });
 
+  it('Should be able to configure a different default theme', async () => {
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}.dark`).doesNotExist();
+    assertThat(`${classSelectorPrefix}.light`).exists();
+
+    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+
+    await delayBy(1000);
+
+    NotificationService.setDefaultTheme(Theme.DARK);
+
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}.light`).doesNotExist();
+    assertThat(`${classSelectorPrefix}.dark`).exists();
+
+    // Set back to the expected default
+    NotificationService.setDefaultTheme(Theme.LIGHT);
+  });
+
   it('Should render with the provided theme', async () => {
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       theme: Theme.DARK
     });
 
@@ -107,7 +132,7 @@ describe('NotificationService', () => {
 
     await delayBy(1000);
 
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       theme: Theme.LIGHT
     });
 
@@ -118,7 +143,7 @@ describe('NotificationService', () => {
   });
 
   it('Should add the provided class name', () => {
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       className: 'hello-world'
     });
 
@@ -130,7 +155,7 @@ describe('NotificationService', () => {
   it('Should auto close by default', async () => {
     jasmine.clock().install();
 
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       content: 'Hello World'
     });
 
@@ -152,7 +177,7 @@ describe('NotificationService', () => {
   it('Should auto close after the provided value', async () => {
     jasmine.clock().install();
 
-    testComponentRenderer.openNotification({
+    testBedComponent.openNotification({
       autoCloseMs: 500,
       content: 'Hello World'
     });
@@ -173,7 +198,7 @@ describe('NotificationService', () => {
   });
 
   it('Should insert the rendered notification as the direct child of body element', () => {
-    testComponentRenderer.openNotification();
+    testBedComponent.openNotification();
 
     fixture.detectChanges();
 

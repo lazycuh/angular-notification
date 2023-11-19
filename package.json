@@ -13,6 +13,7 @@
     "prepare": "husky install",
     "lint": "eslint projects/**/*.{ts,html}",
     "lint-staged": "lint-staged",
+    "update-toc": "markdown-toc -i README.md",
     "check-code-styles": "prettier --check \"**/(*.ts|*.json|*.md|*.html)\""
   },
   "type": "module",
@@ -39,8 +40,8 @@
     "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.9",
     "@angular/compiler-cli": "^16.2.0",
+    "@babybeet/angular-testing-kit": "^1.0.6",
     "@babybeet/eslint-config-base": "^1.0.2",
-    "@babybeet/angular-testing-kit": "^1.0.1",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
@@ -53,6 +54,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "lint-staged": "^15.0.2",
+    "markdown-toc": "^1.2.0",
     "ng-packagr": "^16.2.0",
     "prettier": "^3.0.3",
     "typescript": "~5.1.3"

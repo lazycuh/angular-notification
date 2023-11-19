@@ -1,6 +1,21 @@
-# angular-notification
+# angular-notification [![](https://circleci.com/gh/babybeet/angular-notification.svg?style=svg&logo=appveyor)](https://app.circleci.com/pipelines/github/babybeet/angular-notification?branch=main)
 
 A singleton, global Angular service to programmatically render notifications.
+
+## Table of contents
+
+<!-- toc -->
+
+- [Installation](#installation)
+- [Available APIs](#available-apis)
+  - [`NotificationService`](#notificationservice)
+  - [`NotificationConfiguration`](#notificationconfiguration)
+  - [`Theme`](#theme)
+- [Example Usage](#example-usage)
+  - [Code example](#code-example)
+  - [Result](#result)
+
+<!-- tocstop -->
 
 ## Installation
 
@@ -21,10 +36,11 @@ A singleton, global Angular service to programmatically render notifications.
 
 These are the symbols that are available from this package
 
-```typescript
-/**
- * A singleton Angular service to programmatically show notifications.
- */
+### `NotificationService`
+
+A singleton Angular service to programmatically show notifications.
+
+```ts
 class NotificationService {
   /**
    * Set the default theme that will be used for all notifications created in the future.
@@ -43,12 +59,11 @@ class NotificationService {
 }
 ```
 
-<br/>
+### `NotificationConfiguration`
 
-```typescript
-/**
- * The configuration object for the notification to be created.
- */
+The configuration object for the notification to be created.
+
+```ts
 interface NotificationConfiguration {
   /**
    * The optional number of milliseconds after which the notification is closed. Default is 10 seconds.
@@ -77,9 +92,9 @@ interface NotificationConfiguration {
 }
 ```
 
-<br/>
+### `Theme`
 
-```typescript
+```ts
 const enum Theme {
   LIGHT = 'light',
   DARK = 'dark'
