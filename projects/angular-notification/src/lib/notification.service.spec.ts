@@ -11,7 +11,6 @@ import {
 
 import { NotificationService } from './notification.service';
 import { NotificationConfiguration } from './notification-configuration';
-import { Theme } from './theme';
 
 @Component({
   selector: 'bbb-test',
@@ -105,7 +104,7 @@ describe('NotificationService', () => {
 
     await delayBy(1000);
 
-    NotificationService.setDefaultTheme(Theme.DARK);
+    NotificationService.setDefaultTheme('dark');
 
     testBedComponent.openNotification();
 
@@ -115,12 +114,12 @@ describe('NotificationService', () => {
     assertThat(`${classSelectorPrefix}.dark`).exists();
 
     // Set back to the expected default
-    NotificationService.setDefaultTheme(Theme.LIGHT);
+    NotificationService.setDefaultTheme('light');
   });
 
   it('Should render with the provided theme', async () => {
     testBedComponent.openNotification({
-      theme: Theme.DARK
+      theme: 'dark'
     });
 
     fixture.detectChanges();
@@ -128,12 +127,12 @@ describe('NotificationService', () => {
     assertThat(`${classSelectorPrefix}.light`).doesNotExist();
     assertThat(`${classSelectorPrefix}.dark`).exists();
 
-    fireEvent(`${classSelectorPrefix}__action`, 'pointerup');
+    fireEvent(`${classSelectorPrefix}__action`, 'click');
 
     await delayBy(1000);
 
     testBedComponent.openNotification({
-      theme: Theme.LIGHT
+      theme: 'light'
     });
 
     fixture.detectChanges();

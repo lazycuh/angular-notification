@@ -86,7 +86,7 @@ interface NotificationConfiguration {
   content: string;
 
   /**
-   * The optional theme for the floating box. Default is `Theme.LIGHT`.
+   * The optional theme for the floating box. Default is `light`.
    */
   theme?: Theme;
 }
@@ -95,10 +95,7 @@ interface NotificationConfiguration {
 ### `Theme`
 
 ```ts
-const enum Theme {
-  LIGHT = 'light',
-  DARK = 'dark'
-}
+type Theme = 'dark' | 'light';
 ```
 
 <br/>

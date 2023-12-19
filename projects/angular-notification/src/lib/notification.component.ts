@@ -37,7 +37,7 @@ export class NotificationComponent {
   /**
    * @private Used by template
    */
-  _theme = Theme.LIGHT;
+  _theme: Theme = 'light';
 
   _className?: string;
 
@@ -45,7 +45,7 @@ export class NotificationComponent {
 
   open(notificationConfiguration: NotificationConfiguration) {
     const defaultCloseButtonLabel = 'Close';
-    const defaultTheme = Theme.LIGHT;
+    const defaultTheme: Theme = 'light';
 
     this._className = notificationConfiguration.className;
     this._closeButtonLabel = notificationConfiguration.closeButtonLabel || defaultCloseButtonLabel;

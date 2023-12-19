@@ -16,7 +16,7 @@ export class NotificationService {
    */
   private static readonly _DEFAULT_AUTO_CLOSE_MS_ = 10_000;
 
-  private static _defaultTheme = Theme.LIGHT;
+  private static _defaultTheme: Theme = 'light';
 
   constructor(private readonly _applicationRef: ApplicationRef) {}
 
