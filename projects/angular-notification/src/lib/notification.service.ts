@@ -14,9 +14,10 @@ export class NotificationService {
   /**
    * The number of milliseconds after which the notification is closed.
    */
-  private static readonly _DEFAULT_AUTO_CLOSE_MS_ = 10_000;
+  static readonly DEFAULT_AUTO_CLOSE_MS = 10_000;
 
   private static _defaultTheme: Theme = 'light';
+  private static _defaultCloseButtonLabel = 'Close';
 
   constructor(private readonly _applicationRef: ApplicationRef) {}
 
@@ -27,6 +28,13 @@ export class NotificationService {
    */
   static setDefaultTheme(theme: Theme) {
     NotificationService._defaultTheme = theme;
+  }
+
+  /**
+   * Set the default label for the close button. Default is `Close`.
+   */
+  static setDefaultCloseButtonLabel(label: string) {
+    NotificationService._defaultCloseButtonLabel = label;
   }
 
   /**
@@ -51,10 +59,15 @@ export class NotificationService {
     if (notificationConfiguration.theme === undefined) {
       notificationConfiguration.theme = NotificationService._defaultTheme;
     }
+
+    if (notificationConfiguration.closeButtonLabel === undefined) {
+      notificationConfiguration.closeButtonLabel = NotificationService._defaultCloseButtonLabel;
+    }
+
     notificationComponent.open(notificationConfiguration);
 
     setTimeout(() => {
       notificationComponent.close();
-    }, notificationConfiguration.autoCloseMs || NotificationService._DEFAULT_AUTO_CLOSE_MS_);
+    }, notificationConfiguration.autoCloseMs || NotificationService.DEFAULT_AUTO_CLOSE_MS);
   }
 }

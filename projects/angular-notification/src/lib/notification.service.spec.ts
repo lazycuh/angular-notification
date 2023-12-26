@@ -203,4 +203,35 @@ describe('NotificationService', () => {
 
     expect(document.body.lastElementChild).toEqual(getElementBySelector(classSelectorPrefix));
   });
+
+  it('Should use "Close" as label for close button by default', () => {
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
+  });
+
+  it('Should be able to configure a different default label for close button', async () => {
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
+
+    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+
+    await delayBy(1000);
+
+    NotificationService.setDefaultCloseButtonLabel('Dismiss');
+
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Dismiss');
+
+    // Set back to the expected default
+    NotificationService.setDefaultCloseButtonLabel('Close');
+  });
 });

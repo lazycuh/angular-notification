@@ -50,6 +50,11 @@ class NotificationService {
   static setDefaultTheme(theme: Theme): void;
 
   /**
+   * Set the default label for the close button. Default is `Close`.
+   */
+  static setDefaultCloseButtonLabel(label: string): void;
+
+  /**
    * Open a notification using the provided configuration. The opened notification
    * will be closed automatically after 10 seconds by default.
    *
