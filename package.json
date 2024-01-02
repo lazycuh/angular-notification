@@ -40,12 +40,9 @@
     "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.9",
     "@angular/compiler-cli": "^16.2.0",
-    "@babybeet/angular-testing-kit": "^1.0.7",
-    "@babybeet/eslint-config-base": "^1.0.11",
+    "@babybeet/angular-testing-kit": "^1.0.8",
+    "@babybeet/eslint-config-base": "^1.0.12",
     "@types/jasmine": "~4.3.0",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@typescript-eslint/parser": "5.62.0",
-    "eslint": "^8.51.0",
     "husky": "^8.0.3",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
@@ -56,7 +53,6 @@
     "lint-staged": "^15.0.2",
     "markdown-toc": "^1.2.0",
     "ng-packagr": "^16.2.0",
-    "prettier": "^3.0.3",
     "typescript": "~5.1.3"
   },
   "lint-staged": {

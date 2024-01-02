@@ -18,28 +18,19 @@ export class NotificationComponent {
   /**
    * The notification content.
    *
-   * @private Used by template
    */
-  _content!: string;
+  protected _content!: string;
 
-  /**
-   * @private Used by template
-   */
-  _closeButtonLabel!: string;
+  protected _closeButtonLabel!: string;
 
   /**
    * Whether or not the notification is entering into view.
-   *
-   * @private Used by template
    */
-  _enter = false;
+  protected _enter = false;
 
-  /**
-   * @private Used by template
-   */
-  _theme: Theme = 'light';
+  protected _theme: Theme = 'light';
 
-  _className?: string;
+  protected _className?: string;
 
   private _afterClosedListener?: () => void;
 
@@ -62,8 +53,13 @@ export class NotificationComponent {
     this._enter = false;
   }
 
+  @HostListener('click', ['$event'])
+  protected _onPreventClickEventFromBubbling(event: Event) {
+    event.stopPropagation();
+  }
+
   @HostListener('animationend')
-  _onAnimationEnd() {
+  protected _onAnimationEnd() {
     if (!this._enter) {
       this._afterClosedListener?.();
     }

@@ -234,4 +234,28 @@ describe('NotificationService', () => {
     // Set back to the expected default
     NotificationService.setDefaultCloseButtonLabel('Close');
   });
+
+  it('Should prevent click events from bubbling up', async () => {
+    const clickHandlerSpy = jasmine.createSpy();
+
+    window.addEventListener('click', clickHandlerSpy, false);
+
+    testBedComponent.openNotification();
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}.light`).exists();
+
+    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+
+    await delayBy(1000);
+
+    fixture.detectChanges();
+
+    assertThat(`${classSelectorPrefix}.light`).doesNotExist();
+
+    expect(clickHandlerSpy).not.toHaveBeenCalled();
+
+    window.removeEventListener('click', clickHandlerSpy, false);
+  });
 });
