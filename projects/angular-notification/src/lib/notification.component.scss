@@ -96,6 +96,8 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     border-right: 1px solid var(--notification-divider-color);
     min-width: 300px;
     max-width: 450px;
+    word-break: normal;
+    overflow-wrap: anywhere;
     box-sizing: border-box;
 }
 
