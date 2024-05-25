@@ -32,7 +32,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/angular-notification/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": []
           }
         },
         "lint": {
@@ -55,12 +55,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/visual-test",
             "index": "projects/visual-test/src/index.html",
-            "main": "projects/visual-test/src/main.ts",
-            "polyfills": ["zone.js"],
+            "browser": "projects/visual-test/src/main.ts",
+            "polyfills": [],
             "tsConfig": "projects/visual-test/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/visual-test/src/favicon.ico", "projects/visual-test/src/assets"],
@@ -84,9 +84,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -98,13 +96,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "visual-test:build:production"
+              "buildTarget": "visual-test:build:production"
             },
             "development": {
-              "browserTarget": "visual-test:build:development"
+              "buildTarget": "visual-test:build:development"
             }
           },
           "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

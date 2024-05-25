@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/quotes */
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   assertThat,
   delayBy,
@@ -33,14 +33,12 @@ describe('NotificationService', () => {
   let fixture: ComponentFixture<TestBedComponent>;
   let testBedComponent: TestBedComponent;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [TestBedComponent],
-      providers: [NotificationService]
+      providers: [NotificationService, provideExperimentalZonelessChangeDetection()]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TestBedComponent);
     testBedComponent = fixture.componentInstance;
     fixture.detectChanges();

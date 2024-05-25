@@ -1,12 +1,12 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.6
+  browser-tools: circleci/browser-tools@1.4.8
 
 parameters:
   node-image:
     type: string
-    default: "node:18"
+    default: "node:18.20.3"
 
 install-pnpm: &install-pnpm
   name: Installing pnpm package manager
@@ -69,7 +69,7 @@ jobs:
 
   unit-testing:
     docker:
-      - image: cimg/node:18.18.2-browsers
+      - image: cimg/node:18.20.3-browsers
     steps:
       - checkout
       - attach_workspace:

@@ -1,9 +1,10 @@
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, ViewEncapsulation } from '@angular/core';
 
 import { NotificationConfiguration } from './notification-configuration';
 import { Theme } from './theme';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
