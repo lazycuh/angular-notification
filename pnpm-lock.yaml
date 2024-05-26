@@ -58,8 +58,8 @@ importers:
         specifier: ^18.0.0
         version: 18.0.0(@angular/compiler@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3)))(typescript@5.4.2)
       '@babybeet/angular-testing-kit':
-        specifier: ^1.0.8
-        version: 1.0.8(@angular/common@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(rxjs@7.8.0))(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(jasmine-core@5.1.0)(karma-chrome-launcher@3.2.0)(karma-coverage@2.2.0)(karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.0)(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0))(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0)
+        specifier: ^1.1.0
+        version: 1.1.0(@angular/common@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(rxjs@7.8.0))(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(jasmine-core@5.1.0)(karma-chrome-launcher@3.2.0)(karma-coverage@2.2.0)(karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.0)(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0))(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0)
       '@babybeet/eslint-config-base':
         specifier: ^1.0.12
         version: 1.0.12(typescript@5.4.2)
@@ -903,11 +903,11 @@ packages:
     resolution: {integrity: sha512-WaMsgi6Q8zMgMth93GvWPXkhAIEobfsIkLTacoVZoK1J0CevIPGYY2Vo5YvJGqyHqXM6P4ppOYGsIRU8MM9pFQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babybeet/angular-testing-kit@1.0.8':
-    resolution: {integrity: sha512-ucccG0H5r6R0xqFXrAKGdlUy5zpYWCjYNrzEScTkN2gyyrSqe2WOzF/ndz42okjBtcz2TqyTZMd/qeDzlZzKZQ==}
+  '@babybeet/angular-testing-kit@1.1.0':
+    resolution: {integrity: sha512-B5REypA/PDvQL7Ls+42UF18pgZtIiJwsgxl56MKe+lBOjCqJig3PdTzkNxeXupn2sl7XlDOy7tO9Dw4/ndqoyA==}
     peerDependencies:
-      '@angular/common': 16 - 17
-      '@angular/core': 16 - 17
+      '@angular/common': 16 - 18
+      '@angular/core': 16 - 18
       jasmine-core: 4 - 5
       karma: '6'
       karma-chrome-launcher: '3'
@@ -6086,7 +6086,7 @@ snapshots:
   '@angular/animations@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))':
     dependencies:
       '@angular/core': 18.0.0(rxjs@7.8.0)(zone.js@0.14.3)
-      tslib: 2.3.0
+      tslib: 2.6.2
     optional: true
 
   '@angular/build@18.0.1(@angular/compiler-cli@18.0.0(@angular/compiler@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3)))(typescript@5.4.2))(@types/node@20.12.12)(chokidar@3.6.0)(less@4.2.0)(postcss@8.4.38)(terser@5.31.0)(typescript@5.4.2)':
@@ -6998,7 +6998,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.6
       to-fast-properties: 2.0.0
 
-  '@babybeet/angular-testing-kit@1.0.8(@angular/common@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(rxjs@7.8.0))(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(jasmine-core@5.1.0)(karma-chrome-launcher@3.2.0)(karma-coverage@2.2.0)(karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.0)(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0))(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0)':
+  '@babybeet/angular-testing-kit@1.1.0(@angular/common@18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(rxjs@7.8.0))(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(jasmine-core@5.1.0)(karma-chrome-launcher@3.2.0)(karma-coverage@2.2.0)(karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.0)(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0))(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0)':
     dependencies:
       '@angular/common': 18.0.0(@angular/core@18.0.0(rxjs@7.8.0)(zone.js@0.14.3))(rxjs@7.8.0)
       '@angular/core': 18.0.0(rxjs@7.8.0)(zone.js@0.14.3)
@@ -7009,7 +7009,7 @@ snapshots:
       karma-coverage: 2.2.0
       karma-jasmine: 5.1.0(karma@6.4.0)
       karma-jasmine-html-reporter: 2.1.0(jasmine-core@5.1.0)(karma-jasmine@5.1.0(karma@6.4.0))(karma@6.4.0)
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   '@babybeet/eslint-config-base@1.0.12(typescript@5.4.2)':
     dependencies:
@@ -7334,21 +7334,21 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@jsonjoy.com/base64@1.1.2(tslib@2.3.0)':
+  '@jsonjoy.com/base64@1.1.2(tslib@2.6.2)':
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
-  '@jsonjoy.com/json-pack@1.0.4(tslib@2.3.0)':
+  '@jsonjoy.com/json-pack@1.0.4(tslib@2.6.2)':
     dependencies:
-      '@jsonjoy.com/base64': 1.1.2(tslib@2.3.0)
-      '@jsonjoy.com/util': 1.1.3(tslib@2.3.0)
+      '@jsonjoy.com/base64': 1.1.2(tslib@2.6.2)
+      '@jsonjoy.com/util': 1.1.3(tslib@2.6.2)
       hyperdyperid: 1.2.0
-      thingies: 1.21.0(tslib@2.3.0)
-      tslib: 2.3.0
+      thingies: 1.21.0(tslib@2.6.2)
+      tslib: 2.6.2
 
-  '@jsonjoy.com/util@1.1.3(tslib@2.3.0)':
+  '@jsonjoy.com/util@1.1.3(tslib@2.6.2)':
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
@@ -7487,7 +7487,7 @@ snapshots:
   '@nrwl/tao@19.1.0':
     dependencies:
       nx: 19.1.0
-      tslib: 2.3.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - '@swc-node/register'
       - '@swc/core'
@@ -7503,7 +7503,7 @@ snapshots:
       nx: 19.1.0
       semver: 7.6.2
       tmp: 0.2.3
-      tslib: 2.3.0
+      tslib: 2.6.2
       yargs-parser: 21.1.1
 
   '@nx/nx-darwin-arm64@19.1.0':
@@ -9986,7 +9986,7 @@ snapshots:
 
   injection-js@2.4.0:
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   inquirer@9.2.22:
     dependencies:
@@ -10447,7 +10447,7 @@ snapshots:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
-      tslib: 2.3.0
+      tslib: 2.6.2
     optionalDependencies:
       errno: 0.1.8
       graceful-fs: 4.2.11
@@ -10650,10 +10650,10 @@ snapshots:
 
   memfs@4.9.2:
     dependencies:
-      '@jsonjoy.com/json-pack': 1.0.4(tslib@2.3.0)
-      '@jsonjoy.com/util': 1.1.3(tslib@2.3.0)
-      sonic-forest: 1.0.3(tslib@2.3.0)
-      tslib: 2.3.0
+      '@jsonjoy.com/json-pack': 1.0.4(tslib@2.6.2)
+      '@jsonjoy.com/util': 1.1.3(tslib@2.6.2)
+      sonic-forest: 1.0.3(tslib@2.6.2)
+      tslib: 2.6.2
 
   merge-descriptors@1.0.1: {}
 
@@ -10989,7 +10989,7 @@ snapshots:
       tar-stream: 2.2.0
       tmp: 0.2.3
       tsconfig-paths: 4.2.0
-      tslib: 2.3.0
+      tslib: 2.6.2
       yargs: 17.7.2
       yargs-parser: 21.1.1
     optionalDependencies:
@@ -11557,7 +11557,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   safe-array-concat@1.1.2:
     dependencies:
@@ -11787,10 +11787,10 @@ snapshots:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
 
-  sonic-forest@1.0.3(tslib@2.3.0):
+  sonic-forest@1.0.3(tslib@2.6.2):
     dependencies:
-      tree-dump: 1.0.1(tslib@2.3.0)
-      tslib: 2.3.0
+      tree-dump: 1.0.1(tslib@2.6.2)
+      tslib: 2.6.2
 
   source-map-js@1.2.0: {}
 
@@ -12016,9 +12016,9 @@ snapshots:
 
   text-table@0.2.0: {}
 
-  thingies@1.21.0(tslib@2.3.0):
+  thingies@1.21.0(tslib@2.6.2):
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   through2@2.0.5:
     dependencies:
@@ -12049,9 +12049,9 @@ snapshots:
 
   toml@2.3.6: {}
 
-  tree-dump@1.0.1(tslib@2.3.0):
+  tree-dump@1.0.1(tslib@2.6.2):
     dependencies:
-      tslib: 2.3.0
+      tslib: 2.6.2
 
   tree-kill@1.2.2: {}
 

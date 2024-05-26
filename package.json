@@ -37,7 +37,7 @@
     "@angular-eslint/template-parser": "17.5.1",
     "@angular/cli": "^18.0.1",
     "@angular/compiler-cli": "^18.0.0",
-    "@babybeet/angular-testing-kit": "^1.0.8",
+    "@babybeet/angular-testing-kit": "^1.1.0",
     "@babybeet/eslint-config-base": "^1.0.12",
     "@types/jasmine": "~5.1.0",
     "husky": "^9.0.11",

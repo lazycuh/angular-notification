@@ -40,7 +40,7 @@ function bumpPackageVersion {
     extractVersionFromPackageJsonFile
 }
 
-if [ $(matchCommitMessagePattern "fix|refactor|feat|breaking(\s*change)?") != "0" ]; then
+if [ $(matchCommitMessagePattern "build|chore|ci|docs|fix|perf|refactor|style|test|breaking(\s*change)?") != "0" ]; then
     bumpPackageVersion
     NEW_VERSION=$(extractVersionFromPackageJsonFile)
     cd projects/angular-notification
