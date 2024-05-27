@@ -13,7 +13,7 @@ import { NotificationService } from './notification.service';
 import { NotificationConfiguration } from './notification-configuration';
 
 @Component({
-  selector: 'bbb-test',
+  selector: 'lc-test',
   template: `<ng-container></ng-container>`
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
@@ -29,7 +29,7 @@ export class TestBedComponent {
 }
 
 describe('NotificationService', () => {
-  const classSelectorPrefix = '.bbb-notification';
+  const classSelectorPrefix = '.lc-notification';
   let fixture: ComponentFixture<TestBedComponent>;
   let testBedComponent: TestBedComponent;
 

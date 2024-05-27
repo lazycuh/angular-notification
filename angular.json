@@ -11,7 +11,7 @@
       "projectType": "library",
       "root": "projects/angular-notification",
       "sourceRoot": "projects/angular-notification/src",
-      "prefix": "bbb",
+      "prefix": "lc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

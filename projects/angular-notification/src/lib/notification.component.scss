@@ -4,8 +4,8 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     @return $property $duration $easing-function;
 }
 
-.bbb-notification,
-.bbb-notification__backdrop {
+.lc-notification,
+.lc-notification__backdrop {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -13,18 +13,18 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     top: 0;
 }
 
-.bbb-notification {
+.lc-notification {
     display: flex;
     align-items: flex-end;
     justify-content: center;
     z-index: 9999;
     animation: 0.25s $easing-function forwards;
 
-    &.enter .bbb-notification__body {
+    &.enter .lc-notification__body {
         animation-name: notification-animate-body-enter;
     }
 
-    &.leave .bbb-notification__body {
+    &.leave .lc-notification__body {
         animation-name: notification-animate-body-leave;
     }
 
@@ -71,7 +71,7 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     }
 }
 
-.bbb-notification__body {
+.lc-notification__body {
     display: flex;
     position: fixed;
     bottom: 20px;
@@ -91,7 +91,7 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     font-size: 1.1rem;
 }
 
-.bbb-notification__content {
+.lc-notification__content {
     padding: 20px 20px 20px 15px;
     border-right: 1px solid var(--notification-divider-color);
     min-width: 300px;
@@ -101,7 +101,7 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
     box-sizing: border-box;
 }
 
-.bbb-notification__action.close {
+.lc-notification__action.close {
     box-sizing: border-box;
     background-color: transparent;
     border: none;
@@ -120,7 +120,7 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
 }
 
 @media (max-width: 385px) {
-    .bbb-notification__content {
+    .lc-notification__content {
         min-width: 70vw;
     }
 }

@@ -9,9 +9,9 @@ import { Theme } from './theme';
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class]':
-      '"bbb-notification " + (_theme + " ") + (_enter ? "enter" : "leave") + (_className ? " " + _className : "")'
+      '"lc-notification " + (_theme + " ") + (_enter ? "enter" : "leave") + (_className ? " " + _className : "")'
   },
-  selector: 'bbb-notification',
+  selector: 'lc-notification',
   styleUrls: ['./notification.component.scss'],
   templateUrl: './notification.component.html'
 })

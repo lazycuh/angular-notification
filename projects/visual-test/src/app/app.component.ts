@@ -3,7 +3,7 @@ import { NotificationService } from 'projects/angular-notification/src/public-ap
 
 @Component({
   imports: [],
-  selector: 'bbb-root',
+  selector: 'lc-root',
   standalone: true,
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html'
