@@ -48,22 +48,22 @@ describe('NotificationService', () => {
     fixture.destroy();
   });
 
-  it('Should render a notification with the provided content', () => {
+  it('Should render a notification with the provided content', async () => {
     testBedComponent.openNotification({
       content: 'Hello World'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
   });
 
-  it('Should render a notification with the provided content as HTML', () => {
+  it('Should render a notification with the provided content as HTML', async () => {
     testBedComponent.openNotification({
       content: '<strong>Hello World</strong>'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     expect(getElementBySelector(`${classSelectorPrefix}__content`).innerHTML.trim()).toEqual(
       '<strong>Hello World</strong>'
@@ -72,20 +72,20 @@ describe('NotificationService', () => {
     expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
   });
 
-  it(`Should render a notification whose close button's label has the provided value`, () => {
+  it(`Should render a notification whose close button's label has the provided value`, async () => {
     testBedComponent.openNotification({
       closeButtonLabel: 'Dismiss'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     expect(extractTextContent(`${classSelectorPrefix}__action`).trim()).toEqual('Dismiss');
   });
 
-  it('Should use light theme by default', () => {
+  it('Should use light theme by default', async () => {
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.light`).exists();
   });
@@ -93,20 +93,20 @@ describe('NotificationService', () => {
   it('Should be able to configure a different default theme', async () => {
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.dark`).doesNotExist();
     assertThat(`${classSelectorPrefix}.light`).exists();
 
     fireEvent(`${classSelectorPrefix}__action.close`, 'click');
 
-    await delayBy(1000);
+    await delayBy(500);
 
     NotificationService.setDefaultTheme('dark');
 
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.light`).doesNotExist();
     assertThat(`${classSelectorPrefix}.dark`).exists();
@@ -120,31 +120,31 @@ describe('NotificationService', () => {
       theme: 'dark'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.light`).doesNotExist();
     assertThat(`${classSelectorPrefix}.dark`).exists();
 
     fireEvent(`${classSelectorPrefix}__action`, 'click');
 
-    await delayBy(1000);
+    await delayBy(500);
 
     testBedComponent.openNotification({
       theme: 'light'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.dark`).doesNotExist();
     assertThat(`${classSelectorPrefix}.light`).exists();
   });
 
-  it('Should add the provided class name', () => {
+  it('Should add the provided class name', async () => {
     testBedComponent.openNotification({
       className: 'hello-world'
     });
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.hello-world`).exists();
   });
@@ -156,17 +156,15 @@ describe('NotificationService', () => {
       content: 'Hello World'
     });
 
-    fixture.detectChanges();
+    jasmine.clock().tick(16);
 
     expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
 
     jasmine.clock().tick(10_000);
 
-    fixture.detectChanges();
-
     jasmine.clock().uninstall();
 
-    await delayBy(1000);
+    await delayBy(500);
 
     assertThat(classSelectorPrefix).doesNotExist();
   });
@@ -179,33 +177,31 @@ describe('NotificationService', () => {
       content: 'Hello World'
     });
 
-    fixture.detectChanges();
+    jasmine.clock().tick(16);
 
     expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
 
     jasmine.clock().tick(10_000);
 
-    fixture.detectChanges();
-
     jasmine.clock().uninstall();
 
-    await delayBy(1000);
+    await delayBy(500);
 
     assertThat(classSelectorPrefix).doesNotExist();
   });
 
-  it('Should insert the rendered notification as the direct child of body element', () => {
+  it('Should insert the rendered notification as the direct child of body element', async () => {
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     expect(document.body.lastElementChild).toEqual(getElementBySelector(classSelectorPrefix));
   });
 
-  it('Should use "Close" as label for close button by default', () => {
+  it('Should use "Close" as label for close button by default', async () => {
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
   });
@@ -213,19 +209,19 @@ describe('NotificationService', () => {
   it('Should be able to configure a different default label for close button', async () => {
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
 
     fireEvent(`${classSelectorPrefix}__action.close`, 'click');
 
-    await delayBy(1000);
+    await delayBy(500);
 
     NotificationService.setDefaultCloseButtonLabel('Dismiss');
 
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Dismiss');
 
@@ -240,15 +236,13 @@ describe('NotificationService', () => {
 
     testBedComponent.openNotification();
 
-    fixture.detectChanges();
+    await delayBy(16);
 
     assertThat(`${classSelectorPrefix}.light`).exists();
 
     fireEvent(`${classSelectorPrefix}__action.close`, 'click');
 
-    await delayBy(1000);
-
-    fixture.detectChanges();
+    await delayBy(500);
 
     assertThat(`${classSelectorPrefix}.light`).doesNotExist();
 

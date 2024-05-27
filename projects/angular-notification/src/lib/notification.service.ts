@@ -52,9 +52,6 @@ export class NotificationService {
     notificationComponent.setAfterClosedListener(() => {
       notificationComponentRef.destroy();
     });
-    this._applicationRef.attachView(notificationComponentRef.hostView);
-
-    document.body.appendChild(notificationComponentRef.location.nativeElement);
 
     if (notificationConfiguration.theme === undefined) {
       notificationConfiguration.theme = NotificationService._defaultTheme;
@@ -65,6 +62,10 @@ export class NotificationService {
     }
 
     notificationComponent.open(notificationConfiguration);
+
+    this._applicationRef.attachView(notificationComponentRef.hostView);
+
+    document.body.appendChild(notificationComponentRef.location.nativeElement);
 
     setTimeout(() => {
       notificationComponent.close();
