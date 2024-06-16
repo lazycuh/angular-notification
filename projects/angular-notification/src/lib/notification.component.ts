@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, signal, ViewEncapsulation } from '@angular/core';
 
 import { NotificationConfiguration } from './notification-configuration';
 import { Theme } from './theme';
@@ -9,29 +9,22 @@ import { Theme } from './theme';
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class]':
-      '"lc-notification " + (_theme + " ") + (_enter ? "enter" : "leave") + (_className ? " " + _className : "")'
+      // eslint-disable-next-line max-len
+      '"lc-notification " + (_theme() + " ") + (_enter() ? "enter" : "leave") + (_className() ? " " + _className() : "")'
   },
   selector: 'lc-notification',
   styleUrls: ['./notification.component.scss'],
   templateUrl: './notification.component.html'
 })
 export class NotificationComponent {
-  /**
-   * The notification content.
-   *
-   */
-  protected _content!: string;
-
-  protected _closeButtonLabel!: string;
-
+  protected readonly _content = signal('');
+  protected readonly _closeButtonLabel = signal('');
   /**
    * Whether or not the notification is entering into view.
    */
-  protected _enter = false;
-
-  protected _theme: Theme = 'light';
-
-  protected _className?: string;
+  protected readonly _enter = signal(false);
+  protected readonly _theme = signal<Theme>('light');
+  protected readonly _className = signal<string | undefined>(undefined);
 
   private _afterClosedListener?: () => void;
 
@@ -39,11 +32,11 @@ export class NotificationComponent {
     const defaultCloseButtonLabel = 'Close';
     const defaultTheme: Theme = 'light';
 
-    this._className = notificationConfiguration.className;
-    this._closeButtonLabel = notificationConfiguration.closeButtonLabel || defaultCloseButtonLabel;
-    this._content = notificationConfiguration.content;
-    this._theme = notificationConfiguration.theme || defaultTheme;
-    this._enter = true;
+    this._className.set(notificationConfiguration.className);
+    this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel || defaultCloseButtonLabel);
+    this._content.set(notificationConfiguration.content);
+    this._theme.set(notificationConfiguration.theme || defaultTheme);
+    this._enter.set(true);
   }
 
   setAfterClosedListener(fn: () => void) {
@@ -51,7 +44,7 @@ export class NotificationComponent {
   }
 
   close() {
-    this._enter = false;
+    this._enter.set(false);
   }
 
   @HostListener('click', ['$event'])
@@ -61,7 +54,7 @@ export class NotificationComponent {
 
   @HostListener('animationend')
   protected _onAnimationEnd() {
-    if (!this._enter) {
+    if (!this._enter()) {
       this._afterClosedListener?.();
     }
   }

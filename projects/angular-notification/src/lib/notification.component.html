@@ -6,12 +6,12 @@
 <div class="lc-notification__body">
     <div
         class="lc-notification__content"
-        [innerHTML]="_content"></div>
+        [innerHTML]="_content()"></div>
     <button
         class="lc-notification__action close"
         aria-label="Close notification"
         type="button"
         (click)="close()">
-        {{ _closeButtonLabel }}
+        {{ _closeButtonLabel() }}
     </button>
 </div>
