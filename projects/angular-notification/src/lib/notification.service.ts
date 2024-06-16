@@ -19,6 +19,8 @@ export class NotificationService {
   private static _defaultTheme: Theme = 'light';
   private static _defaultCloseButtonLabel = 'Close';
 
+  private _openedNotifications: NotificationComponent[] = [];
+
   constructor(private readonly _applicationRef: ApplicationRef) {}
 
   /**
@@ -44,6 +46,8 @@ export class NotificationService {
    * @param notificationConfiguration The notification configuration object.
    */
   open(notificationConfiguration: NotificationConfiguration) {
+    this._closeAll();
+
     const notificationComponentRef = createComponent(NotificationComponent, {
       environmentInjector: this._applicationRef.injector
     });
@@ -67,8 +71,18 @@ export class NotificationService {
 
     document.body.appendChild(notificationComponentRef.location.nativeElement);
 
+    this._openedNotifications.push(notificationComponent);
+
     setTimeout(() => {
       notificationComponent.close();
     }, notificationConfiguration.autoCloseMs || NotificationService.DEFAULT_AUTO_CLOSE_MS);
+  }
+
+  private _closeAll() {
+    for (const notification of this._openedNotifications) {
+      notification.close();
+    }
+
+    this._openedNotifications = [];
   }
 }

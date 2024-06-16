@@ -250,4 +250,34 @@ describe('NotificationService', () => {
 
     window.removeEventListener('click', clickHandlerSpy, false);
   });
+
+  it('Should close currently opened notification before opening a new one', async () => {
+    testBedComponent.openNotification({
+      autoCloseMs: 500,
+      content: 'Hello World 1'
+    });
+
+    await delayBy(500);
+
+    expect(extractTextContent(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+      'Hello World 1'
+    );
+
+    testBedComponent.openNotification({
+      autoCloseMs: 500,
+      content: 'Hello World 2'
+    });
+
+    await delayBy(500);
+
+    expect(document.querySelectorAll(classSelectorPrefix).length).toEqual(1);
+
+    expect(extractTextContent(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+      'Hello World 2'
+    );
+
+    expect(extractTextContent(`${classSelectorPrefix}:last-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+      'Hello World 2'
+    );
+  });
 });
