@@ -43,8 +43,8 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2(@angular/common@18.1.1(@angular/core@18.1.1(rxjs@7.8.1)(zone.js@0.14.8))(rxjs@7.8.1))(@angular/core@18.1.1(rxjs@7.8.1)(zone.js@0.14.8))(jasmine-core@5.1.2)(karma-chrome-launcher@3.2.0)(karma-coverage@2.2.1)(karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.2)(karma-jasmine@5.1.0(karma@6.4.3))(karma@6.4.3))(karma-jasmine@5.1.0(karma@6.4.3))(karma@6.4.3)
       '@lazycuh/eslint-config-base':
-        specifier: ^3.0.0
-        version: 3.0.0(eslint@9.7.0)(typescript@5.5.3)
+        specifier: ^3.0.1
+        version: 3.0.1(eslint@9.7.0)(typescript@5.5.3)
       '@types/jasmine':
         specifier: ~5.1.0
         version: 5.1.4
@@ -1336,8 +1336,8 @@ packages:
       karma-jasmine: '5'
       karma-jasmine-html-reporter: '2'
 
-  '@lazycuh/eslint-config-base@3.0.0':
-    resolution: {integrity: sha512-7iFeH+iwdYOaS4z5yWcFmQzNrFy/PSgLeSwnGyLLmXMy9y5W6aZ8IcrzAaPkuJHNC/IpHlBhgoVqw2hc9hFsJg==}
+  '@lazycuh/eslint-config-base@3.0.1':
+    resolution: {integrity: sha512-cLmgThERFcXvxz6TANwooRnA80akH5xI4O4xqv990XaDGbjqRZJlUAQIXjDaIN1RxqOkljRot2g5wQWdzpuHaQ==}
     peerDependencies:
       eslint: '>= 9.6.0'
 
@@ -7221,7 +7221,7 @@ snapshots:
       karma-jasmine-html-reporter: 2.1.0(jasmine-core@5.1.2)(karma-jasmine@5.1.0(karma@6.4.3))(karma@6.4.3)
       tslib: 2.6.3
 
-  '@lazycuh/eslint-config-base@3.0.0(eslint@9.7.0)(typescript@5.5.3)':
+  '@lazycuh/eslint-config-base@3.0.1(eslint@9.7.0)(typescript@5.5.3)':
     dependencies:
       '@eslint/compat': 1.1.1
       '@eslint/eslintrc': 3.1.0

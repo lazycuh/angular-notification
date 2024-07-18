@@ -8,6 +8,7 @@ then
     exit 1
 fi
 
+pnpm check-code-styles --write
 pnpm update-toc
 git add .
 pnpm lint-staged
