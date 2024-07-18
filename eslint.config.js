@@ -30,6 +30,7 @@ export default tsEslint.config(
       ],
       '@angular-eslint/no-host-metadata-property': 'off',
       '@angular-eslint/prefer-on-push-component-change-detection': 'error',
+      '@angular-eslint/prefer-standalone': 'error',
       'import/no-unresolved': 'off'
     }
   },
