@@ -1,4 +1,4 @@
-# angular-notification [![](https://circleci.com/gh/babybeet/angular-notification.svg?style=svg&logo=appveyor)](https://app.circleci.com/pipelines/github/babybeet/angular-notification?branch=main)
+# angular-notification [![](https://circleci.com/gh/lazycuh/angular-notification.svg?style=svg&logo=appveyor)](https://app.circleci.com/pipelines/github/lazycuh/angular-notification?branch=main)
 
 A singleton, global Angular service to programmatically render notifications.
 
@@ -6,6 +6,7 @@ A singleton, global Angular service to programmatically render notifications.
 
 <!-- toc -->
 
+- [Angular compatibility](#angular-compatibility)
 - [Installation](#installation)
 - [Available APIs](#available-apis)
   - [`NotificationService`](#notificationservice)
@@ -17,19 +18,25 @@ A singleton, global Angular service to programmatically render notifications.
 
 <!-- tocstop -->
 
+## Angular compatibility
+
+| This library | Angular |
+| ------------ | ------- |
+| 1.x.x        | 16 - 18 |
+
 ## Installation
 
 - `npm`
   ```
-  npm i -S @babybeet/angular-notification
+  npm i -S @lazycuh/angular-notification
   ```
 - `pnpm`
   ```
-  pnpm i -S @babybeet/angular-notification
+  pnpm i -S @lazycuh/angular-notification
   ```
 - `yarn`
   ```
-  yarn add @babybeet/angular-notification
+  yarn add @lazycuh/angular-notification
   ```
 
 ## Available APIs
@@ -111,7 +118,7 @@ type Theme = 'dark' | 'light';
 
 ```typescript
 // Import the service into your class to start using it
-import { NotificationService } from '@babybeet/angular-notification';
+import { NotificationService } from '@lazycuh/angular-notification';
 
 @Component({
   selector: 'test-component',

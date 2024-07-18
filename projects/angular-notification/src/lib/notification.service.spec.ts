@@ -1,22 +1,18 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/quotes */
-import { Component, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  assertThat,
-  delayBy,
-  extractTextContent,
-  fireEvent,
-  getElementBySelector
-} from '@babybeet/angular-testing-kit';
+import { assertThat, delayBy, extractTextContent, fireEvent, getElementBySelector } from '@lazycuh/angular-testing-kit';
 
 import { NotificationService } from './notification.service';
 import { NotificationConfiguration } from './notification-configuration';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'lc-test',
-  template: `<ng-container></ng-container>`
+  standalone: true,
+  template: `<ng-container />`
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
 export class TestBedComponent {
   constructor(private readonly _service: NotificationService) {}
 
@@ -35,7 +31,7 @@ describe('NotificationService', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TestBedComponent],
+      imports: [TestBedComponent],
       providers: [NotificationService, provideExperimentalZonelessChangeDetection()]
     }).compileComponents();
 

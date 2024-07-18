@@ -33,7 +33,7 @@ function bumpPackageVersion {
     elif [ $(matchCommitMessagePattern "breaking(\s*change)?") != "0" ]; then
         npm version major --no-git-tag-version
     else
-        echo "Commit message should start with a valid type, please see https://github.com/babybeet/angular-notification/blob/main/CONTRIBUTING.md to learn more"
+        echo "Commit message should start with a valid type, please see https://github.com/lazycuh/angular-notification/blob/main/CONTRIBUTING.md to learn more"
         npm version minor --no-git-tag-version
     fi
 

@@ -75,7 +75,7 @@ export class NotificationService {
 
     setTimeout(() => {
       notificationComponent.close();
-    }, notificationConfiguration.autoCloseMs || NotificationService.DEFAULT_AUTO_CLOSE_MS);
+    }, notificationConfiguration.autoCloseMs ?? NotificationService.DEFAULT_AUTO_CLOSE_MS);
   }
 
   private _closeAll() {

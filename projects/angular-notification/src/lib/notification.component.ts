@@ -6,13 +6,13 @@ import { Theme } from './theme';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class]':
       // eslint-disable-next-line max-len
       '"lc-notification " + (_theme() + " ") + (_enter() ? "enter" : "leave") + (_className() ? " " + _className() : "")'
   },
   selector: 'lc-notification',
+  standalone: true,
   styleUrls: ['./notification.component.scss'],
   templateUrl: './notification.component.html'
 })
@@ -33,9 +33,9 @@ export class NotificationComponent {
     const defaultTheme: Theme = 'light';
 
     this._className.set(notificationConfiguration.className);
-    this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel || defaultCloseButtonLabel);
+    this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel ?? defaultCloseButtonLabel);
     this._content.set(notificationConfiguration.content);
-    this._theme.set(notificationConfiguration.theme || defaultTheme);
+    this._theme.set(notificationConfiguration.theme ?? defaultTheme);
     this._enter.set(true);
   }
 
