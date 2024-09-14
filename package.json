@@ -1,7 +1,7 @@
 {
   "name": "@lazycuh/angular-notification",
   "description": "A singleton, global Angular service to programmatically show notifications",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
