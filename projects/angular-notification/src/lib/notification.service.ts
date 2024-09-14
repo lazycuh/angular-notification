@@ -54,6 +54,7 @@ export class NotificationService {
     const notificationComponent = notificationComponentRef.instance;
 
     notificationComponent.setAfterClosedListener(() => {
+      document.body.removeChild(notificationComponentRef.location.nativeElement);
       notificationComponentRef.destroy();
     });
 
