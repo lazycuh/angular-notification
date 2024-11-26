@@ -5,7 +5,7 @@ import { Theme } from './theme';
  */
 export interface NotificationConfiguration {
   /**
-   * The optional number of milliseconds after which the notification is closed. Default is 10 seconds.
+   * The optional number of milliseconds after which the notification is closed. Default is 30 seconds.
    */
   autoCloseMs?: number;
 

@@ -14,14 +14,25 @@ export class NotificationService {
   /**
    * The number of milliseconds after which the notification is closed.
    */
-  static readonly DEFAULT_AUTO_CLOSE_MS = 10_000;
+  static readonly DEFAULT_AUTO_CLOSE_MS = 30_000;
 
+  private static _globalAutoCloseMs = NotificationService.DEFAULT_AUTO_CLOSE_MS;
   private static _defaultTheme: Theme = 'light';
   private static _defaultCloseButtonLabel = 'Close';
 
   private _openedNotifications: NotificationComponent[] = [];
 
   constructor(private readonly _applicationRef: ApplicationRef) {}
+
+  /**
+   * Set the number of milliseconds to be applied globally to all notifications created in the future
+   * after which they are automatically closed.
+   *
+   * @param theme The new theme to be used as the default.
+   */
+  static setGlobalAutoCloseMs(autoCloseMs: number) {
+    NotificationService._globalAutoCloseMs = autoCloseMs;
+  }
 
   /**
    * Set the default theme that will be used for all notifications created in the future.
@@ -76,7 +87,7 @@ export class NotificationService {
 
     setTimeout(() => {
       notificationComponent.close();
-    }, notificationConfiguration.autoCloseMs ?? NotificationService.DEFAULT_AUTO_CLOSE_MS);
+    }, notificationConfiguration.autoCloseMs ?? NotificationService._globalAutoCloseMs);
   }
 
   private _closeAll() {

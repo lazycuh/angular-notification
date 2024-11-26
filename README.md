@@ -50,6 +50,19 @@ A singleton Angular service to programmatically show notifications.
 ```ts
 class NotificationService {
   /**
+   * The number of milliseconds after which the notification is closed.
+   */
+  static readonly DEFAULT_AUTO_CLOSE_MS = 30000;
+
+  /**
+   * Set the number of milliseconds to be applied globally to all notifications created in the future
+   * after which they are automatically closed.
+   *
+   * @param theme The new theme to be used as the default.
+   */
+  static setGlobalAutoCloseMs(autoCloseMs: number): void;
+
+  /**
    * Set the default theme that will be used for all notifications created in the future.
    *
    * @param theme The new theme to be used as the default.
@@ -67,7 +80,7 @@ class NotificationService {
    *
    * @param notificationConfiguration The notification configuration object.
    */
-  open(notificationConfiguration: NotificationConfiguration);
+  open(notificationConfiguration: NotificationConfiguration): void;
 }
 ```
 
@@ -78,7 +91,7 @@ The configuration object for the notification to be created.
 ```ts
 interface NotificationConfiguration {
   /**
-   * The optional number of milliseconds after which the notification is closed. Default is 10 seconds.
+   * The optional number of milliseconds after which the notification is closed. Default is 30 seconds.
    */
   autoCloseMs?: number;
 

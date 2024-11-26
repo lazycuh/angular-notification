@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { ChangeDetectionStrategy, Component, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { assertThat, delayBy, extractTextContent, fireEvent, getElementBySelector } from '@lazycuh/angular-testing-kit';
+import { assertThat, delayBy, fireEvent, getElementBySelector } from '@lazycuh/angular-testing-kit';
 
 import { NotificationService } from './notification.service';
 import { NotificationConfiguration } from './notification-configuration';
@@ -50,7 +50,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
+    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
   });
 
   it('Should render a notification with the provided content as HTML', async () => {
@@ -60,11 +60,8 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    expect(getElementBySelector(`${classSelectorPrefix}__content`).innerHTML.trim()).toEqual(
-      '<strong>Hello World</strong>'
-    );
-
-    expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
+    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml('<strong>Hello World</strong>');
+    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
   });
 
   it(`Should render a notification whose close button's label has the provided value`, async () => {
@@ -74,7 +71,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    expect(extractTextContent(`${classSelectorPrefix}__action`).trim()).toEqual('Dismiss');
+    assertThat(`${classSelectorPrefix}__action`).hasTextContentMatching('Dismiss');
   });
 
   it('Should use light theme by default', async () => {
@@ -153,9 +150,9 @@ describe('NotificationService', () => {
 
     jasmine.clock().tick(16);
 
-    expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
+    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
 
-    jasmine.clock().tick(10_000);
+    jasmine.clock().tick(NotificationService.DEFAULT_AUTO_CLOSE_MS);
 
     jasmine.clock().uninstall();
 
@@ -174,7 +171,7 @@ describe('NotificationService', () => {
 
     jasmine.clock().tick(16);
 
-    expect(extractTextContent(`${classSelectorPrefix}__content`).trim()).toEqual('Hello World');
+    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
 
     jasmine.clock().tick(10_000);
 
@@ -254,7 +251,7 @@ describe('NotificationService', () => {
 
     await delayBy(500);
 
-    expect(extractTextContent(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+    assertThat(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
       'Hello World 1'
     );
 
@@ -267,12 +264,36 @@ describe('NotificationService', () => {
 
     expect(document.querySelectorAll(classSelectorPrefix).length).toEqual(1);
 
-    expect(extractTextContent(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+    assertThat(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
       'Hello World 2'
     );
 
-    expect(extractTextContent(`${classSelectorPrefix}:last-of-type ${classSelectorPrefix}__content`).trim()).toEqual(
+    assertThat(`${classSelectorPrefix}:last-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
       'Hello World 2'
     );
+  });
+
+  it('Can change the default auto close ms', async () => {
+    jasmine.clock().install();
+
+    NotificationService.setGlobalAutoCloseMs(3000);
+
+    testBedComponent.openNotification({
+      content: 'Hello World'
+    });
+
+    jasmine.clock().tick(16);
+
+    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
+
+    jasmine.clock().tick(3000);
+
+    jasmine.clock().uninstall();
+
+    await delayBy(500);
+
+    assertThat(classSelectorPrefix).doesNotExist();
+
+    NotificationService.setGlobalAutoCloseMs(NotificationService.DEFAULT_AUTO_CLOSE_MS);
   });
 });

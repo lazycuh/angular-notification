@@ -12,7 +12,7 @@ install-pnpm: &install-pnpm
   name: Installing pnpm package manager
   command: |
     corepack enable
-    corepack prepare pnpm@latest-8 --activate
+    corepack prepare pnpm@latest-9 --activate
 
 jobs:
   versioning:
