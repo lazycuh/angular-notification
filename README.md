@@ -55,10 +55,8 @@ class NotificationService {
   static readonly DEFAULT_AUTO_CLOSE_MS = 30000;
 
   /**
-   * Set the number of milliseconds to be applied globally to all notifications created in the future
-   * after which they are automatically closed.
-   *
-   * @param theme The new theme to be used as the default.
+   * Set the number of milliseconds to be applied globally to all notifications created
+   * in the future after which they are automatically closed.
    */
   static setGlobalAutoCloseMs(autoCloseMs: number): void;
 
@@ -96,6 +94,12 @@ interface NotificationConfiguration {
   autoCloseMs?: number;
 
   /**
+   * Whether to bypass Angular's default sanitization rules for HTML content (such as removing inline style).
+   * Default is `false`.
+   */
+  bypassHtmlSanitization?: boolean;
+
+  /**
    * The optional class name to add for this notification.
    */
   className?: string;
@@ -107,9 +111,11 @@ interface NotificationConfiguration {
 
   /**
    * The required notification content to show. HTML is supported.
+   *
+   * If the HTML content contains inline style, it will be stripped out by Angular's default sanitization step,
+   * to bypass this behavior, pass `true` to `bypassHtmlSanitization` option.
    */
   content: string;
-
   /**
    * The optional theme for the floating box. Default is `light`.
    */

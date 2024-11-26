@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, signal, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer, SafeValue } from '@angular/platform-browser';
 
 import { NotificationConfiguration } from './notification-configuration';
 import { Theme } from './theme';
@@ -17,7 +18,7 @@ import { Theme } from './theme';
   templateUrl: './notification.component.html'
 })
 export class NotificationComponent {
-  protected readonly _content = signal('');
+  protected readonly _content = signal<SafeValue>('');
   protected readonly _closeButtonLabel = signal('');
   /**
    * Whether or not the notification is entering into view.
@@ -25,6 +26,8 @@ export class NotificationComponent {
   protected readonly _enter = signal(false);
   protected readonly _theme = signal<Theme>('light');
   protected readonly _className = signal<string | undefined>(undefined);
+
+  private readonly _domSanitizer = inject(DomSanitizer);
 
   private _afterClosedListener?: () => void;
 
@@ -34,7 +37,13 @@ export class NotificationComponent {
 
     this._className.set(notificationConfiguration.className);
     this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel ?? defaultCloseButtonLabel);
-    this._content.set(notificationConfiguration.content);
+
+    if (notificationConfiguration.bypassHtmlSanitization === true) {
+      this._content.set(this._domSanitizer.bypassSecurityTrustHtml(notificationConfiguration.content));
+    } else {
+      this._content.set(notificationConfiguration.content);
+    }
+
     this._theme.set(notificationConfiguration.theme ?? defaultTheme);
     this._enter.set(true);
   }

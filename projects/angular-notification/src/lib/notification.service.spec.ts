@@ -64,6 +64,31 @@ describe('NotificationService', () => {
     assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
   });
 
+  it('Should sanitize/strip out inline style by default', async () => {
+    testBedComponent.openNotification({
+      content: '<strong style="font-weight: bold">Hello World</strong>'
+    });
+
+    await delayBy(16);
+
+    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml('<strong>Hello World</strong>');
+    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
+  });
+
+  it('Should not sanitize/strip out inline style when bypass option is provided', async () => {
+    testBedComponent.openNotification({
+      bypassHtmlSanitization: true,
+      content: '<strong style="font-weight: bold">Hello World</strong>'
+    });
+
+    await delayBy(16);
+
+    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml(
+      '<strong style="font-weight: bold">Hello World</strong>'
+    );
+    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
+  });
+
   it(`Should render a notification whose close button's label has the provided value`, async () => {
     testBedComponent.openNotification({
       closeButtonLabel: 'Dismiss'

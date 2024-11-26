@@ -25,10 +25,8 @@ export class NotificationService {
   constructor(private readonly _applicationRef: ApplicationRef) {}
 
   /**
-   * Set the number of milliseconds to be applied globally to all notifications created in the future
-   * after which they are automatically closed.
-   *
-   * @param theme The new theme to be used as the default.
+   * Set the number of milliseconds to be applied globally to all notifications created
+   * in the future after which they are automatically closed.
    */
   static setGlobalAutoCloseMs(autoCloseMs: number) {
     NotificationService._globalAutoCloseMs = autoCloseMs;
