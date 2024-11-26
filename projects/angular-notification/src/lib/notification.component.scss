@@ -92,7 +92,7 @@ $easing-function: cubic-bezier(0.04, 0.54, 0.25, 1);
 }
 
 .lc-notification__content {
-    padding: 20px 20px 20px 15px;
+    padding: 20px;
     border-right: 1px solid var(--notification-divider-color);
     min-width: 300px;
     max-width: 450px;

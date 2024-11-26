@@ -116,6 +116,7 @@ interface NotificationConfiguration {
    * to bypass this behavior, pass `true` to `bypassHtmlSanitization` option.
    */
   content: string;
+
   /**
    * The optional theme for the floating box. Default is `light`.
    */
