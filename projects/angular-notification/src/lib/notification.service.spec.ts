@@ -9,7 +9,6 @@ import { NotificationConfiguration } from './notification-configuration';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'lc-test',
-  standalone: true,
   template: `<ng-container />`
 })
 export class TestBedComponent {

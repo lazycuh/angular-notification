@@ -13,7 +13,6 @@ import { Theme } from './theme';
       '"lc-notification " + (_theme() + " ") + (_enter() ? "enter" : "leave") + (_className() ? " " + _className() : "")'
   },
   selector: 'lc-notification',
-  standalone: true,
   styleUrls: ['./notification.component.scss'],
   templateUrl: './notification.component.html'
 })

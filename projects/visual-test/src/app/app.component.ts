@@ -5,7 +5,6 @@ import { NotificationService } from 'projects/angular-notification/src/public-ap
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   selector: 'lc-root',
-  standalone: true,
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html'
 })
