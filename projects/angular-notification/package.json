@@ -6,8 +6,8 @@
     "name": "Baby Beet"
   },
   "peerDependencies": {
-    "@angular/common": "16 - 18",
-    "@angular/core": "16 - 18"
+    "@angular/common": "19",
+    "@angular/core": "19"
   },
   "keywords": [
     "angular",

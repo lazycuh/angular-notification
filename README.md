@@ -22,8 +22,8 @@ A singleton, global Angular service to programmatically render notifications.
 
 | This library | Angular |
 | ------------ | ------- |
-| 1.x.x        | 16 - 18 |
 | 2.x.x        | 19.x.x  |
+| 1.x.x        | 16 - 18 |
 
 ## Installation
 
