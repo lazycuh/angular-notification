@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/quotes */
-import { ChangeDetectionStrategy, Component, provideExperimentalZonelessChangeDetection } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { assertThat, delayBy, fireEvent, getElementBySelector } from '@lazycuh/angular-testing-kit';
+/* eslint-disable @stylistic/quotes */
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { delayBy, renderComponent } from 'projects/angular-notification/test/helpers';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { NotificationService } from './notification.service';
 import { NotificationConfiguration } from './notification-configuration';
@@ -9,10 +11,10 @@ import { NotificationConfiguration } from './notification-configuration';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'lc-test',
-  template: `<ng-container />`
+  template: '<ng-container />'
 })
 export class TestBedComponent {
-  constructor(private readonly _service: NotificationService) {}
+  private readonly _service = inject(NotificationService);
 
   openNotification(config: Partial<NotificationConfiguration> = {}) {
     this._service.open({
@@ -24,22 +26,11 @@ export class TestBedComponent {
 
 describe('NotificationService', () => {
   const classSelectorPrefix = '.lc-notification';
-  let fixture: ComponentFixture<TestBedComponent>;
   let testBedComponent: TestBedComponent;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TestBedComponent],
-      providers: [NotificationService, provideExperimentalZonelessChangeDetection()]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(TestBedComponent);
-    testBedComponent = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    fixture.destroy();
+    const renderResult = await renderComponent(TestBedComponent);
+    testBedComponent = renderResult.fixture.componentInstance;
   });
 
   it('Should render a notification with the provided content', async () => {
@@ -49,7 +40,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
   });
 
   it('Should render a notification with the provided content as HTML', async () => {
@@ -59,8 +50,9 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml('<strong>Hello World</strong>');
-    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
+    expect(document.body.querySelector(`${classSelectorPrefix}__content`)!.innerHTML).toEqual(
+      '<strong>Hello World</strong>'
+    );
   });
 
   it('Should sanitize/strip out inline style by default', async () => {
@@ -70,8 +62,9 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml('<strong>Hello World</strong>');
-    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
+    expect(document.body.querySelector(`${classSelectorPrefix}__content`)!.innerHTML).toEqual(
+      '<strong>Hello World</strong>'
+    );
   });
 
   it('Should not sanitize/strip out inline style when bypass option is provided', async () => {
@@ -82,20 +75,19 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasInnerHtml(
+    expect(document.body.querySelector(`${classSelectorPrefix}__content`)!.innerHTML).toEqual(
       '<strong style="font-weight: bold">Hello World</strong>'
     );
-    assertThat(`${classSelectorPrefix}__content`).hasTextContent('Hello World');
   });
 
-  it(`Should render a notification whose close button's label has the provided value`, async () => {
+  it("Should render a notification whose close button's label has the provided value", async () => {
     testBedComponent.openNotification({
       closeButtonLabel: 'Dismiss'
     });
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__action`).hasTextContentMatching('Dismiss');
+    expect(screen.getByText('Dismiss')).toBeInTheDocument();
   });
 
   it('Should use light theme by default', async () => {
@@ -103,7 +95,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.light`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.light`)).toBeInTheDocument();
   });
 
   it('Should be able to configure a different default theme', async () => {
@@ -111,10 +103,11 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.dark`).doesNotExist();
-    assertThat(`${classSelectorPrefix}.light`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.dark`)!).not.toBeInTheDocument();
+    expect(document.body.querySelector(`${classSelectorPrefix}.light`)!).toBeInTheDocument();
 
-    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Close'));
 
     await delayBy(500);
 
@@ -124,8 +117,8 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.light`).doesNotExist();
-    assertThat(`${classSelectorPrefix}.dark`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.light`)!).not.toBeInTheDocument();
+    expect(document.body.querySelector(`${classSelectorPrefix}.dark`)!).toBeInTheDocument();
 
     // Set back to the expected default
     NotificationService.setDefaultTheme('light');
@@ -138,10 +131,11 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.light`).doesNotExist();
-    assertThat(`${classSelectorPrefix}.dark`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.light`)!).not.toBeInTheDocument();
+    expect(document.body.querySelector(`${classSelectorPrefix}.dark`)!).toBeInTheDocument();
 
-    fireEvent(`${classSelectorPrefix}__action`, 'click');
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Close'));
 
     await delayBy(500);
 
@@ -151,8 +145,8 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.dark`).doesNotExist();
-    assertThat(`${classSelectorPrefix}.light`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.dark`)!).not.toBeInTheDocument();
+    expect(document.body.querySelector(`${classSelectorPrefix}.light`)!).toBeInTheDocument();
   });
 
   it('Should add the provided class name', async () => {
@@ -162,48 +156,48 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.hello-world`).exists();
+    expect(document.body.querySelector(`${classSelectorPrefix}.hello-world`)!).toBeInTheDocument();
   });
 
   it('Should auto close by default', async () => {
-    jasmine.clock().install();
+    vi.useFakeTimers();
 
     testBedComponent.openNotification({
       content: 'Hello World'
     });
 
-    jasmine.clock().tick(16);
+    await vi.advanceTimersByTimeAsync(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
 
-    jasmine.clock().tick(NotificationService.DEFAULT_AUTO_CLOSE_MS);
+    await vi.advanceTimersByTimeAsync(NotificationService.DEFAULT_AUTO_CLOSE_MS);
 
-    jasmine.clock().uninstall();
+    vi.useRealTimers();
 
     await delayBy(500);
 
-    assertThat(classSelectorPrefix).doesNotExist();
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
   });
 
   it('Should auto close after the provided value', async () => {
-    jasmine.clock().install();
+    vi.useFakeTimers();
 
     testBedComponent.openNotification({
       autoCloseMs: 500,
       content: 'Hello World'
     });
 
-    jasmine.clock().tick(16);
+    await vi.advanceTimersByTimeAsync(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
 
-    jasmine.clock().tick(10_000);
+    await vi.advanceTimersByTimeAsync(10_000);
 
-    jasmine.clock().uninstall();
+    vi.useRealTimers();
 
     await delayBy(500);
 
-    assertThat(classSelectorPrefix).doesNotExist();
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
   });
 
   it('Should insert the rendered notification as the direct child of body element', async () => {
@@ -211,7 +205,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    expect(document.body.lastElementChild).toEqual(getElementBySelector(classSelectorPrefix));
+    expect(document.body.lastElementChild).toEqual(document.querySelector(classSelectorPrefix));
   });
 
   it('Should use "Close" as label for close button by default', async () => {
@@ -219,7 +213,7 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
+    expect(screen.getByText('Close')).toBeInTheDocument();
   });
 
   it('Should be able to configure a different default label for close button', async () => {
@@ -227,9 +221,10 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Close');
+    expect(screen.getByText('Close')).toBeInTheDocument();
 
-    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Close'));
 
     await delayBy(500);
 
@@ -239,14 +234,14 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}__action.close`).hasTextContentMatching('Dismiss');
+    expect(screen.getByText('Dismiss')).toBeInTheDocument();
 
     // Set back to the expected default
     NotificationService.setDefaultCloseButtonLabel('Close');
   });
 
   it('Should prevent click events from bubbling up', async () => {
-    const clickHandlerSpy = jasmine.createSpy();
+    const clickHandlerSpy = vi.fn();
 
     window.addEventListener('click', clickHandlerSpy, false);
 
@@ -254,13 +249,14 @@ describe('NotificationService', () => {
 
     await delayBy(16);
 
-    assertThat(`${classSelectorPrefix}.light`).exists();
+    expect(document.querySelector(`${classSelectorPrefix}.light`)).toBeInTheDocument();
 
-    fireEvent(`${classSelectorPrefix}__action.close`, 'click');
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Close'));
 
     await delayBy(500);
 
-    assertThat(`${classSelectorPrefix}.light`).doesNotExist();
+    expect(document.querySelector(`${classSelectorPrefix}.light`)).not.toBeInTheDocument();
 
     expect(clickHandlerSpy).not.toHaveBeenCalled();
 
@@ -275,9 +271,9 @@ describe('NotificationService', () => {
 
     await delayBy(500);
 
-    assertThat(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
-      'Hello World 1'
-    );
+    expect(
+      document.body.querySelector(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`)
+    ).toHaveTextContent('Hello World 1');
 
     testBedComponent.openNotification({
       autoCloseMs: 500,
@@ -286,19 +282,19 @@ describe('NotificationService', () => {
 
     await delayBy(500);
 
-    expect(document.querySelectorAll(classSelectorPrefix).length).toEqual(1);
+    expect(document.querySelectorAll(classSelectorPrefix)).toHaveLength(1);
 
-    assertThat(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
-      'Hello World 2'
-    );
+    expect(
+      document.body.querySelector(`${classSelectorPrefix}:first-of-type ${classSelectorPrefix}__content`)
+    ).toHaveTextContent('Hello World 2');
 
-    assertThat(`${classSelectorPrefix}:last-of-type ${classSelectorPrefix}__content`).hasTextContentMatching(
-      'Hello World 2'
-    );
+    expect(
+      document.body.querySelector(`${classSelectorPrefix}:last-of-type ${classSelectorPrefix}__content`)
+    ).toHaveTextContent('Hello World 2');
   });
 
   it('Can change the default auto close ms', async () => {
-    jasmine.clock().install();
+    vi.useFakeTimers();
 
     NotificationService.setGlobalAutoCloseMs(3000);
 
@@ -306,17 +302,17 @@ describe('NotificationService', () => {
       content: 'Hello World'
     });
 
-    jasmine.clock().tick(16);
+    await vi.advanceTimersByTimeAsync(16);
 
-    assertThat(`${classSelectorPrefix}__content`).hasTextContentMatching('Hello World');
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
 
-    jasmine.clock().tick(3000);
+    await vi.advanceTimersByTimeAsync(3000);
 
-    jasmine.clock().uninstall();
+    vi.useRealTimers();
 
     await delayBy(500);
 
-    assertThat(classSelectorPrefix).doesNotExist();
+    expect(screen.queryByText('Hello World')).not.toBeInTheDocument();
 
     NotificationService.setGlobalAutoCloseMs(NotificationService.DEFAULT_AUTO_CLOSE_MS);
   });

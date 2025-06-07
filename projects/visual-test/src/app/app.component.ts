@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NotificationService } from 'projects/angular-notification/src/public-api';
 
 @Component({
@@ -9,7 +9,9 @@ import { NotificationService } from 'projects/angular-notification/src/public-ap
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(private readonly _notificationService: NotificationService) {
+  private readonly _notificationService = inject(NotificationService);
+
+  constructor() {
     NotificationService.setDefaultTheme('light');
   }
 

@@ -6,7 +6,7 @@ orbs:
 parameters:
   node-image:
     type: string
-    default: "node:18.20.3"
+    default: 'node:22.16.0'
 
 install-pnpm: &install-pnpm
   name: Installing pnpm package manager
@@ -69,9 +69,10 @@ jobs:
 
   unit-testing:
     docker:
-      - image: cimg/node:18.20.3-browsers
+      - image: cimg/node:22.16.0-browsers
     steps:
       - checkout
+      - run: *install-pnpm
       - attach_workspace:
           at: .
       - browser-tools/install-chrome
@@ -79,6 +80,7 @@ jobs:
       - run:
           name: Unit testing
           command: |
+            pnpm exec playwright install --with-deps
             pnpm test:ci
 
   building:
@@ -113,12 +115,10 @@ jobs:
             ../../.circleci/scripts/publish-to-npm-registry.sh
 
 workflows:
-  deployment:
+  merge-request:
+    when: pipeline.git.branch != "main"
     jobs:
-      - versioning
-      - installation:
-          requires:
-            - versioning
+      - installation
       - linting:
           requires:
             - installation
@@ -128,13 +128,19 @@ workflows:
       - building:
           requires:
             - installation
+
+  deployment:
+    when: pipeline.git.branch == "main"
+    jobs:
+      - versioning
+      - installation:
+          requires:
+            - versioning
+      - building:
+          requires:
+            - installation
       - publish-to-npm-registry:
-          filters:
-            branches:
-              only: main
           context:
             - npm
           requires:
-            - linting
-            - unit-testing
             - building
