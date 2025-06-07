@@ -1,14 +1,14 @@
 import angular from 'angular-eslint';
 import tsEslint from 'typescript-eslint';
 
-import baseConfig from '@lazycuh/eslint-config-base';
+import baseConfig from '@lazycuh/eslint-config-base-with-vitest';
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
  */
 export default tsEslint.config(
   {
-    files: ['**/src/**/*.ts'],
+    files: ['**/*.ts'],
     extends: [...baseConfig, ...angular.configs.tsRecommended],
     processor: angular.processInlineTemplates,
     rules: {
@@ -29,8 +29,9 @@ export default tsEslint.config(
         }
       ],
       '@angular-eslint/no-host-metadata-property': 'off',
+      '@angular-eslint/no-input-rename': 'off',
       '@angular-eslint/prefer-on-push-component-change-detection': 'error',
-      'import/no-unresolved': 'off'
+      'import/no-unresolved': 'off',
     }
   },
   {

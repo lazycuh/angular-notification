@@ -1,4 +1,4 @@
-import { ApplicationRef, createComponent, Injectable } from '@angular/core';
+import { ApplicationRef, createComponent, inject, Injectable } from '@angular/core';
 
 import { NotificationComponent } from './notification.component';
 import { NotificationConfiguration } from './notification-configuration';
@@ -20,9 +20,9 @@ export class NotificationService {
   private static _defaultTheme: Theme = 'light';
   private static _defaultCloseButtonLabel = 'Close';
 
-  private _openedNotifications: NotificationComponent[] = [];
+  private readonly _applicationRef = inject(ApplicationRef);
 
-  constructor(private readonly _applicationRef: ApplicationRef) {}
+  private _openedNotifications: NotificationComponent[] = [];
 
   /**
    * Set the number of milliseconds to be applied globally to all notifications created
@@ -67,13 +67,9 @@ export class NotificationService {
       notificationComponentRef.destroy();
     });
 
-    if (notificationConfiguration.theme === undefined) {
-      notificationConfiguration.theme = NotificationService._defaultTheme;
-    }
+    notificationConfiguration.theme ??= NotificationService._defaultTheme;
 
-    if (notificationConfiguration.closeButtonLabel === undefined) {
-      notificationConfiguration.closeButtonLabel = NotificationService._defaultCloseButtonLabel;
-    }
+    notificationConfiguration.closeButtonLabel ??= NotificationService._defaultCloseButtonLabel;
 
     notificationComponent.open(notificationConfiguration);
 

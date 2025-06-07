@@ -3,11 +3,11 @@
   "description": "A singleton, global Angular service to programmatically show notifications",
   "version": "2.0.1",
   "author": {
-    "name": "Baby Beet"
+    "name": "Lazy Cuh"
   },
   "peerDependencies": {
-    "@angular/common": "19",
-    "@angular/core": "19"
+    "@angular/common": "20",
+    "@angular/core": "20"
   },
   "keywords": [
     "angular",
@@ -25,7 +25,7 @@
     "url": "https://github.com/lazycuh/angular-notification"
   },
   "devDependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.1"
   },
   "sideEffects": false,
   "publishConfig": {

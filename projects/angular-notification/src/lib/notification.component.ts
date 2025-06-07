@@ -31,11 +31,8 @@ export class NotificationComponent {
   private _afterClosedListener?: () => void;
 
   open(notificationConfiguration: NotificationConfiguration) {
-    const defaultCloseButtonLabel = 'Close';
-    const defaultTheme: Theme = 'light';
-
     this._className.set(notificationConfiguration.className);
-    this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel ?? defaultCloseButtonLabel);
+    this._closeButtonLabel.set(notificationConfiguration.closeButtonLabel!);
 
     if (notificationConfiguration.bypassHtmlSanitization === true) {
       this._content.set(this._domSanitizer.bypassSecurityTrustHtml(notificationConfiguration.content));
@@ -43,7 +40,7 @@ export class NotificationComponent {
       this._content.set(notificationConfiguration.content);
     }
 
-    this._theme.set(notificationConfiguration.theme ?? defaultTheme);
+    this._theme.set(notificationConfiguration.theme!);
     this._enter.set(true);
   }
 
